@@ -26,19 +26,13 @@ if (grep -iq -e "numpy" -e "scipy" requirements.txt) then
   puts-step "Noticed numpy/scipy. Bootstrapping prebuilt binaries."
   cd .heroku
 
-  ## check whether this has happened already
-  ## set BLAS/LAPACK/ATLAS
-  if [ -d "vendor/lib/atlas-base" ]; then
-    puts-step "Using cached binaries."
-  else
-    puts-step "Creating/downloading binaries."
-    # Download and extract everything into target vendor directory.
-    mkdir -p "${VENDORED_LOCAL_DIR}"
-    curl --retry 5 -s -o ${VENDORED_LOCAL_DIR}/${VENDORED_BINARIES} ${VENDORED_BINARY_URL_PREFIX}${VENDORED_BINARIES} >/dev/null
-    curl --retry 5 -s -o ${VENDORED_LOCAL_DIR}/${VENDORED_NUMPY} ${VENDORED_BINARY_URL_PREFIX}${VENDORED_NUMPY} >/dev/null
-    curl --retry 5 -s -o ${VENDORED_LOCAL_DIR}/${VENDORED_SCIPY} ${VENDORED_BINARY_URL_PREFIX}${VENDORED_SCIPY} >/dev/null
-    tar -xvf ${VENDORED_LOCAL_DIR}/${VENDORED_BINARIES} > /dev/null
-  fi
+  puts-step "Creating/downloading binaries."
+  # Download and extract everything into target vendor directory.
+  mkdir -p "${VENDORED_LOCAL_DIR}"
+  curl --retry 5 -s -o ${VENDORED_LOCAL_DIR}/${VENDORED_BINARIES} ${VENDORED_BINARY_URL_PREFIX}${VENDORED_BINARIES} >/dev/null
+  curl --retry 5 -s -o ${VENDORED_LOCAL_DIR}/${VENDORED_NUMPY} ${VENDORED_BINARY_URL_PREFIX}${VENDORED_NUMPY} >/dev/null
+  curl --retry 5 -s -o ${VENDORED_LOCAL_DIR}/${VENDORED_SCIPY} ${VENDORED_BINARY_URL_PREFIX}${VENDORED_SCIPY} >/dev/null
+  tar -xvf ${VENDORED_LOCAL_DIR}/${VENDORED_BINARIES} > /dev/null
   export BLAS=$(pwd)/vendor/lib/atlas-base/atlas/libblas.a
   export LAPACK=$(pwd)/vendor/lib/atlas-base/atlas/liblapack.a
   export ATLAS=$(pwd)/vendor/lib/atlas-base/libatlas.a
