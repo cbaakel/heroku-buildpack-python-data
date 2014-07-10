@@ -10,7 +10,7 @@
 # This script is invoked by [`bin/compile`](/).
 
 VENDORED_LOCAL_DIR="npscipy-binaries"
-$VENDORED_BINARY_URL_PREFIX="https://lyftdata-buildpack-binaries.s3.amazonaws.com/python/scipy/"
+VENDORED_BINARY_URL_PREFIX="https://lyftdata-buildpack-binaries.s3.amazonaws.com/python/scipy/"
 # The location of the pre-compiled atlas/lapack/blas/gfortran binaries.
 VENDORED_BINARIES="deps.tar.gz"
 # the location of the bdist of numpy
